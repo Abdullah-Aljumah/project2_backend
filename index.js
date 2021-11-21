@@ -16,20 +16,6 @@ app.use("/character", characterRouter);
 
 app.use("/user", userRouter);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

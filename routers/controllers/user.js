@@ -31,4 +31,16 @@ const newUser = (req, res) => {
   });
 };
 
-module.exports = { getUsers, newUser };
+const findUserByEmail = (req, res) => {
+  const { email } = req.params;
+  userModel
+    .find({ email: `${email}` })
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+module.exports = { getUsers, newUser, findUserByEmail };

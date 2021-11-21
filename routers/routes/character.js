@@ -3,7 +3,7 @@ const {
   createCharacter,
   getAllCharacter,
   getKindCharacter,
-  getIdCharacter
+  getIdCharacter,
 } = require("../controllers/character");
 
 const characterRouter = express.Router();
