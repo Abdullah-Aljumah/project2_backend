@@ -43,4 +43,24 @@ const findUserByEmail = (req, res) => {
     });
 };
 
-module.exports = { getUsers, newUser, findUserByEmail };
+// {age: 17}, {$set:{name:"Naomi"}}, {new: true}
+
+// change the name of user
+const changeName = (req, res) => {
+  const { email } = req.params;
+  const { userName } = req.body;
+  userModel
+    .findOneAndUpdate(
+      { email: `${email}` },
+      { $set: { userName: userName } },
+      { new: true }
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+module.exports = { getUsers, newUser, findUserByEmail, changeName };
