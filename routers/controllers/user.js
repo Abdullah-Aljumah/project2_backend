@@ -29,7 +29,7 @@ const newUser = (req, res) => {
       return res.status(200).json(newUser);
     }
   });
-};
+}; 
 
 const findUserByEmail = (req, res) => {
   const { email } = req.params;
@@ -79,4 +79,27 @@ const changeBio = (req, res) => {
     });
 };
 
-module.exports = { getUsers, newUser, findUserByEmail, changeName, changeBio };
+const favoriteUser = (req, res) => {
+  const { email, name } = req.params;
+  userModel
+    .findOneAndUpdate(
+      { email: email },
+      { $push: { favorite: name } },
+      { new: true }
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+module.exports = {
+  getUsers,
+  newUser,
+  findUserByEmail,
+  changeName,
+  changeBio,
+  favoriteUser,
+};
