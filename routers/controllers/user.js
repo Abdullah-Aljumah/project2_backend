@@ -95,6 +95,22 @@ const favoriteUser = (req, res) => {
     });
 };
 
+const removeFavoriteUser = (req, res) => {
+  const { email, name } = req.params;
+  userModel
+    .findOneAndUpdate(
+      { email: email },
+      { $pull: { favorite: name } },
+      { new: true }
+    )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 module.exports = {
   getUsers,
   newUser,
@@ -102,4 +118,5 @@ module.exports = {
   changeName,
   changeBio,
   favoriteUser,
+  removeFavoriteUser
 };
