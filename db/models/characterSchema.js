@@ -9,6 +9,7 @@ const characterSchema = new mongoose.Schema({
   gif: { type: String },
   voice: { type: String },
   game: { type: String },
+  price: { type: String },
 });
 
 module.exports = mongoose.model("Character", characterSchema);

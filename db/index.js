@@ -8,6 +8,6 @@ const options ={
   useUnifiedTopoLogy: true,
   }
 
-mongoose.connect(`mongodb://localhost:27017/${DB}`, options).then(() => {
+mongoose.connect(process.env.DB_URI, options).then(() => {
   console.log("DB can be use");
 });
