@@ -96,11 +96,11 @@ const favoriteUser = (req, res) => {
 };
 
 const removeFavoriteUser = (req, res) => {
-  const { email, name } = req.params;
+  const { email, _id } = req.params;
   userModel
     .findOneAndUpdate(
       { email: email },
-      { $pull: { favorite: name } },
+      { $pull: { favoriteSchema: _id } },
       { new: true }
     )
     .then((result) => {
