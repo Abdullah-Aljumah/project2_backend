@@ -29,7 +29,7 @@ const newUser = (req, res) => {
       return res.status(200).json(newUser);
     }
   });
-}; 
+};
 
 const findUserByEmail = (req, res) => {
   const { email } = req.params;
@@ -111,6 +111,43 @@ const removeFavoriteUser = (req, res) => {
     });
 };
 
+//  here
+const favoriteUserTest = (req, res) => {
+  const { email, ObjectId } = req.params;
+  userModel.findOne({ ObjectId: req.params.ObjectId }).then((user) => {
+    // if (user) {
+    //   return res.status(400).json("Card already picked");
+    // } else {
+      userModel
+        .findOneAndUpdate(
+          { email: email },
+          { $push: { favoriteSchema: ObjectId } },
+          { new: true }
+        )
+        .then((result) => {
+          res.send(result);
+        })
+        .catch((err) => {
+          res.send(err);
+        });
+    // }
+  });
+};
+
+const getFavorite = (req, res) => {
+  const { email } = req.params;
+  userModel
+    .find({ email: email })
+    .populate("favoriteSchema")
+    .exec()
+    .then((result) => {
+      res.send(result[0].favoriteSchema);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 module.exports = {
   getUsers,
   newUser,
@@ -118,5 +155,7 @@ module.exports = {
   changeName,
   changeBio,
   favoriteUser,
-  removeFavoriteUser
+  removeFavoriteUser,
+  favoriteUserTest,
+  getFavorite
 };
