@@ -6,6 +6,6 @@ const userSchema = new mongoose.Schema({
   password: { type: String, require: true },
   bio: { type: String , default:"Bio is empty"},
   favoriteSchema: [{ type: mongoose.Schema.Types.ObjectId, ref: "Character" }],
-});
+}); 
 
 module.exports = mongoose.model("User", userSchema);

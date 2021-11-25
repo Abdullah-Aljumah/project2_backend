@@ -1,13 +1,10 @@
 const userModel = require("../../db/models/userSchema");
-// const userModel = require("../../db/models/userSchema")
 
-// let users = [];
-
+// Get all users
 const getUsers = async (req, res) => {
   userModel
     .find({})
     .then((result) => {
-      // users.push(result)
       res.send(result);
     })
     .catch((err) => {
@@ -15,6 +12,7 @@ const getUsers = async (req, res) => {
     });
 };
 
+// Create new user
 const newUser = (req, res) => {
   userModel.findOne({ email: req.body.email }).then((user) => {
     if (user) {
@@ -31,6 +29,8 @@ const newUser = (req, res) => {
   });
 };
 
+
+// Find user by email
 const findUserByEmail = (req, res) => {
   const { email } = req.params;
   userModel
@@ -61,7 +61,7 @@ const changeName = (req, res) => {
     });
 };
 
-// edit name of the user
+// edit bio of the user
 const changeBio = (req, res) => {
   const { email } = req.params;
   const { bio } = req.body;
@@ -79,22 +79,7 @@ const changeBio = (req, res) => {
     });
 };
 
-const favoriteUser = (req, res) => {
-  const { email, name } = req.params;
-  userModel
-    .findOneAndUpdate(
-      { email: email },
-      { $push: { favorite: name } },
-      { new: true }
-    )
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-};
-
+// Remove from cart
 const removeFavoriteUser = (req, res) => {
   const { email, _id } = req.params;
   userModel
@@ -111,13 +96,10 @@ const removeFavoriteUser = (req, res) => {
     });
 };
 
-//  here
+// Add to cart
 const favoriteUserTest = (req, res) => {
   const { email, ObjectId } = req.params;
   userModel.findOne({ ObjectId: req.params.ObjectId }).then((user) => {
-    // if (user) {
-    //   return res.status(400).json("Card already picked");
-    // } else {
       userModel
         .findOneAndUpdate(
           { email: email },
@@ -134,6 +116,7 @@ const favoriteUserTest = (req, res) => {
   });
 };
 
+// Get all cart
 const getFavorite = (req, res) => {
   const { email } = req.params;
   userModel
@@ -154,7 +137,6 @@ module.exports = {
   findUserByEmail,
   changeName,
   changeBio,
-  favoriteUser,
   removeFavoriteUser,
   favoriteUserTest,
   getFavorite
